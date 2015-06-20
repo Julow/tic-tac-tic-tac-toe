@@ -6,9 +6,11 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:30:02 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 12:54:09 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 14:10:10 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-(* No: No owner; P1: Player1; P2: Player2 *)
+(** No: No owner;
+ ** P1: Player1;
+ ** P2: Player2 *)
 type t = No | P1 | P2
