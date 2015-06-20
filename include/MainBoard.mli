@@ -1,16 +1,13 @@
 (* ************************************************************************** *)
 (*                                                                            *)
 (*                                                        :::      ::::::::   *)
-(*   Owner.ml                                           :+:      :+:    :+:   *)
+(*   MainBoard.mli                                      :+:      :+:    :+:   *)
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/20 11:30:02 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 14:10:10 by ngoguey          ###   ########.fr       *)
+(*   Created: 2015/06/20 14:13:02 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/20 14:13:08 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-(** No: No owner;
- ** P1: Player1;
- ** P2: Player2 *)
-type t = No | P1 | P2
+val inject_input : Board.board -> int * int -> Board.board -> Board.board

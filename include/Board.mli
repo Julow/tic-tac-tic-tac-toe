@@ -1,16 +1,15 @@
 (* ************************************************************************** *)
 (*                                                                            *)
 (*                                                        :::      ::::::::   *)
-(*   Owner.ml                                           :+:      :+:    :+:   *)
+(*   Board.mli                                          :+:      :+:    :+:   *)
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/20 11:30:02 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 14:10:10 by ngoguey          ###   ########.fr       *)
+(*   Created: 2015/06/20 14:12:38 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/20 14:12:44 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-(** No: No owner;
- ** P1: Player1;
- ** P2: Player2 *)
-type t = No | P1 | P2
+type board = Owned of Owner.t | Playing of board list
+val emptyMain : board
+val update_state : board -> board
