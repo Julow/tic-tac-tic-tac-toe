@@ -1,15 +1,15 @@
 (* ************************************************************************** *)
 (*                                                                            *)
 (*                                                        :::      ::::::::   *)
-(*   Owner.mli                                          :+:      :+:    :+:   *)
+(*   Ncurses.mli                                        :+:      :+:    :+:   *)
 (*                                                    +:+ +:+         +:+     *)
-(*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
+(*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/20 14:11:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 15:26:38 by jaguillo         ###   ########.fr       *)
+(*   Created: 2015/06/20 15:04:53 by jaguillo          #+#    #+#             *)
+(*   Updated: 2015/06/20 16:10:38 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-type t = No | P1 | P2
+val get_input : unit -> (int * int)
 
-val next : t -> t
+val draw : Board.t -> unit

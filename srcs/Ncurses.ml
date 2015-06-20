@@ -1,15 +1,18 @@
 (* ************************************************************************** *)
 (*                                                                            *)
 (*                                                        :::      ::::::::   *)
-(*   Owner.mli                                          :+:      :+:    :+:   *)
+(*   Ncurses.ml                                         :+:      :+:    :+:   *)
 (*                                                    +:+ +:+         +:+     *)
-(*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
+(*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/20 14:11:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 15:26:38 by jaguillo         ###   ########.fr       *)
+(*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
+(*   Updated: 2015/06/20 15:35:35 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-type t = No | P1 | P2
+let get_input () =
+	let x = Utils.prompt_int "x" in
+	let y = Utils.prompt_int "y" in
+	(x, y)
 
-val next : t -> t
+let draw b = ()

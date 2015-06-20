@@ -6,8 +6,8 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 14:33:12 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 14:33:31 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/20 16:08:48 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-val start : string -> string -> string -> unit
+val start : string -> string -> ((unit -> (int * int)) * (Board.t -> unit)) -> unit

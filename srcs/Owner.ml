@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:30:02 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 14:10:10 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 15:19:16 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -14,3 +14,8 @@
  ** P1: Player1;
  ** P2: Player2 *)
 type t = No | P1 | P2
+
+let next = function
+	| P1			-> P2
+	| P2			-> P1
+	| No			-> No
