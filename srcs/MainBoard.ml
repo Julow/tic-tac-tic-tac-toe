@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:47:58 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 14:09:16 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 15:15:03 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -24,7 +24,7 @@ let inject_input b (x, y) o =
   let subboardcellid = x mod 3 + y mod 3 * 3 in
   let map_cells i c =
 	if i = subboardcellid then
-	  o
+	  Board.Owned o
 	else
 	  c
   in
