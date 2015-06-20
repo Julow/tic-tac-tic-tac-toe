@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/20 12:56:59 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/20 14:11:18 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := tic-tac-tic-tac-toe
 
 OBJS_DIR := bin
 SRCS_DIR := srcs
-INCS_DIR := includes
+INCS_DIR := include
 
 SRCS := $(shell ls -1 $(SRCS_DIR) | grep '.ml')
 
