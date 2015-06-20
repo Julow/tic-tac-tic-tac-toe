@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:22:31 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 12:48:05 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 12:53:45 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -20,6 +20,7 @@ let emptyMain = Playing[emptySmall; emptySmall; emptySmall;
 						emptySmall; emptySmall; emptySmall;
 						emptySmall; emptySmall; emptySmall;]
 
+(* Converts a 'Playing board' to a 'Owned board' if conditions are met *)
 let update_state b =
   let helper = function
 	| ((Owned o0) as o)::(Owned o1)::(Owned o2)
@@ -37,5 +38,5 @@ let update_state b =
 	| _													-> b
   in
   match b with
-  | Playing l	-> helper l
-  | _			-> b
+  | Playing l											-> helper l
+  | _													-> b
