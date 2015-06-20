@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:47:58 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 15:29:41 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/20 17:35:52 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -40,3 +40,52 @@ let inject_input b (x, y) o =
 	 let b' = Board.Playing (List.mapi map_subboard l) in
 	 update_state b'
   | _										-> failwith "Already won"
+
+let getLineTriplet b sbid lid =
+  let rec build_list l cid l' =
+	match l with
+	| []							-> l'
+	| hd::tl when cid / 3 = lid		-> build_list tl (cid + 1) (hd::l')
+	| hd::tl 						-> build_list tl (cid + 1) l'
+  in
+  let helper = function
+	| Board.Playing l				-> build_list l 0 []
+	| _								-> []
+  in
+  match b with
+  | Board.Playing l					-> helper (List.nth l sbid)
+  | _								-> failwith "Already won"
+
+let getColTriplet b sbid lid =
+  let rec build_coidt l cid l' =
+	match l with
+	| []							-> l'
+	| hd::tl when cid mod 3 = lid	-> build_coidt tl (cid + 1) (hd::l')
+	| hd::tl 						-> build_coidt tl (cid + 1) l'
+  in
+  let helper = function
+	| Board.Playing l				-> build_coidt l 0 []
+	| _								-> []
+  in
+  match b with
+  | Board.Playing l					-> helper (List.nth l sbid)
+  | _								-> failwith "Already won"
+
+let getDiagTriplet b sbid did =
+  let rec build_coidt l cid l' =
+	match l with
+	| []							-> l'
+	| hd::tl when did = 0 && (cid = 0 || cid = 4 || cid = 8)
+	  -> build_coidt tl (cid + 1) (hd::l')
+	| hd::tl when did = 1 && (cid = 2 || cid = 4 || cid = 6)
+	  -> build_coidt tl (cid + 1) (hd::l')
+	| hd::tl 						-> build_coidt tl (cid + 1) l'
+  in
+  let helper = function
+	| Board.Playing l				-> build_coidt l 0 []
+	| _								-> []
+  in
+  match b with
+  | Board.Playing l					-> helper (List.nth l sbid)
+  | _								-> failwith "Already won"
+													  
