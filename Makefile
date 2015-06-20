@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/20 17:26:39 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/20 16:54:15 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCS_DIR := include
 SRCS :=	Utils.ml Owner.ml Player.ml \
 		Board.ml MainBoard.ml \
 		Debug.ml \
-		Ncurses.ml \
+		Ncurses.ml IA.ml \
 		Game.ml main.ml
 
 BYT_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmo))

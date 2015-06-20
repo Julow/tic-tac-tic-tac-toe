@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:22:31 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 15:41:17 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 17:06:54 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -44,3 +44,16 @@ let update_state b =
   match b with
   | Playing l											-> helper l
   | _													-> b
+
+let owner b (x, y) =
+  let helper sb =
+	let cid = x mod 3 + y mod 3 * 3 in
+	match sb with
+	| Playing l			-> List.nth l cid
+	| _					-> failwith "Unreachable"
+  in
+  let sbid = x / 3 + y / 3 * 3 in
+  match b with
+  | Playing l			-> helper (List.nth l sbid)
+  | _					-> failwith "Game is over"
+									
