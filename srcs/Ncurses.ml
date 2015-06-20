@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 15:35:35 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/20 16:18:32 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -15,4 +15,4 @@ let get_input () =
 	let y = Utils.prompt_int "y" in
 	(x, y)
 
-let draw b = ()
+let draw b = Debug.print_board b
