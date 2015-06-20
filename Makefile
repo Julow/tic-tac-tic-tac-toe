@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/20 16:32:23 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/20 17:26:39 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ OBJS_DIR := bin
 SRCS_DIR := srcs
 INCS_DIR := include
 
-SRCS :=	Utils.ml \
-		Owner.ml Board.ml MainBoard.ml \
+SRCS :=	Utils.ml Owner.ml Player.ml \
+		Board.ml MainBoard.ml \
 		Debug.ml \
 		Ncurses.ml \
 		Game.ml main.ml
