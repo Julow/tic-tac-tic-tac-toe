@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:22:31 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 17:06:54 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 19:30:16 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -50,7 +50,7 @@ let owner b (x, y) =
 	let cid = x mod 3 + y mod 3 * 3 in
 	match sb with
 	| Playing l			-> List.nth l cid
-	| _					-> failwith "Unreachable"
+	| Owned o			-> sb
   in
   let sbid = x / 3 + y / 3 * 3 in
   match b with

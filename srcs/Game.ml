@@ -6,15 +6,21 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:41 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 17:27:14 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/20 19:16:55 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
+
+let input_player board players (get_input, _) =
+	if (Player.string_of_player players) = "" then
+		IA.get_input board
+	else
+		get_input board
 
 let rec game_loop board players ((get_input, draw) as ui) =
 	print_string ((Player.string_of_player players) ^ " (");
 	print_char (Player.char_of_player players);
 	print_endline ") play";
-	let board = MainBoard.inject_input board (get_input board) (Player.type_of_player players) in
+	let board = MainBoard.inject_input board (input_player board players ui) (Player.type_of_player players) in
 	draw board;
 	match board with
 	| Board.Owned (_)	->
