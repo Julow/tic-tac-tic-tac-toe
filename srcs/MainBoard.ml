@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:47:58 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 17:35:52 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/20 18:57:57 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -88,4 +88,17 @@ let getDiagTriplet b sbid did =
   match b with
   | Board.Playing l					-> helper (List.nth l sbid)
   | _								-> failwith "Already won"
-													  
+												
+let getcell_xy sbid cid =
+  ((sbid mod 3) * 3 + cid mod 3, (sbid / 3) * 3 + cid / 3)
+
+												
+let getSbTriplet b sbid (v, v', v'') =
+  let helper = function
+	| Board.Playing l				->
+	   [List.nth l v; List.nth l v'; List.nth l v'']
+	| _								-> []
+  in
+  match b with
+  | Board.Playing l					-> helper (List.nth l sbid)
+  | _								-> failwith "Already won"
