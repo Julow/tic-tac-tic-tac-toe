@@ -19,3 +19,9 @@ let next = function
 	| P1			-> P2
 	| P2			-> P1
 	| No			-> No
+
+let char_of_owner = function
+  | No					-> 'N'
+  | P1					-> 'O'
+  | P2					-> 'X'
+							 

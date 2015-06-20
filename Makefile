@@ -16,10 +16,9 @@ OBJS_DIR := bin
 SRCS_DIR := srcs
 INCS_DIR := include
 
-SRCS :=	Utils.ml \
-		Owner.ml Board.ml MainBoard.ml \
-		Ncurses.ml \
-		Game.ml main.ml
+SRCS :=	Owner.ml Board.ml MainBoard.ml \
+		Game.ml Utils.ml main.ml \
+		Debug.ml
 
 BYT_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmo))
 OPT_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmx))
