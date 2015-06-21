@@ -5,52 +5,69 @@
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/20 16:25:38 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 19:11:31 by ngoguey          ###   ########.fr       *)
+(*   Created: 2015/06/21 09:20:57 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/21 10:13:44 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-let triplets = [(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6);
-				(1, 4, 7); (2, 5, 8); (0, 4, 8); (2, 4, 6)]
-let owners = [Board.Owned Owner.P2; Board.Owned Owner.P1; Board.Owned Owner.No]
+let triplets1 = [(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6);(1, 4, 7); (2, 5, 8)]
+let triplets2 = [(0, 4, 8); (2, 4, 6)]
+
 let sbindex = [0; 1; 2; 3; 4; 5; 6; 7; 8]
 
+let empty_moves = [[]; []; []; []; []]
+
+
+(** ti: triplet indexes (int * int * int)
+ ** ai,bi,ci: tripled indexes unpacked
+ ** cl: cell list
+ ** sbi: subboard index
+ ** lm: list matches
+ **
+ ** **)
+let foreach_triplets ((ai, bi, ci) as ti) cl sbi lm =
+  let (av, bv, cv) = Board.getTripletValues cl ti in
+  lm
+
+
+let check_triplets cl sbi lm =
+  let rec helper tl f lm =
+	match tl with
+	| []							-> lm
+	| hdt::tlt						-> helper tlt f (f hdt cl sbi lm)
+  in
+  let lm' = helper triplets1 foreach_triplets lm in
+  let lm' = helper triplets2 foreach_triplets lm' in
+  (* let lm' = helper triplets2 foreach_triplets_diag lm' in *)
+  lm'
+	
+(** l: subboards list
+ ** li: subboards indexes list
+ ** lm: matches list
+ ** cl: cell list*)
+let foreach_subboards l =
+  let rec helper l li lm =
+	match l, li with
+	| [], _
+	| _, _ when List.length (List.hd lm) > 0		-> lm
+	| (Board.Playing cl)::tl, hdi::tli				->
+	   helper tl tli (check_triplets cl hdi lm)
+	| _, _											-> lm
+  in
+  helper l sbindex empty_moves
+
+(** l: subboards list
+ ** lm: list moves *)
+let get_best_move l =
+  let helper = function
+	| his3rd::my3rd::his2nddiag::my2nddiag::my2nd	-> (1, 1)
+	| _												-> failwith "Unreachable"
+  in
+  let lm = foreach_subboards l in
+  helper lm
+
+(** b: board *)
 let get_input b =
-  let foreach_subboards (x, y) sb sbi =
-	let foreach_triplets (x, y) ((v, v', v'') as t) =
-	  let best_cell = function
-		(* | []					-> (-1, -1) *)
-		| Board.Owned fst::Board.Owned sec::Board.Owned ter::_
-			 when fst = Owner.No && sec <> Owner.No && sec = ter
-		  -> MainBoard.getcell_xy sbi v
-		| Board.Owned fst::Board.Owned sec::Board.Owned ter::_
-			 when sec = Owner.No && fst <> Owner.No && fst = ter
-		  -> MainBoard.getcell_xy sbi v'
-		| Board.Owned fst::Board.Owned sec::Board.Owned ter::_
-			 when ter = Owner.No && fst <> Owner.No && sec = fst
-		  -> MainBoard.getcell_xy sbi v''
-		| _					-> (-1, -1)							 
-	  in
-	  if (x > -1) then
-		(x, y)
-	  else
-		best_cell (MainBoard.getSbTriplet b sbi t)
-	in	
-	if (x > -1) then
-	  (x, y)
-	else
-	  List.fold_left foreach_triplets (-1, -1) triplets
-  in
-  let foreach_owners (x, y) o =
-	if (x > -1) then
-	  (x, y)
-	else if o = Board.Owned Owner.No then
-	  (3, 3) (* pick random *)
-	else
-	  match b with
-	  | Board.Playing l	-> List.fold_left2 foreach_subboards (-1, -1) l sbindex
-	  | _				-> failwith "Game is over"
-  in
   match b with
-  | Board.Playing _     -> List.fold_left foreach_owners (-1, -1) owners
+  | Board.Playing l     -> get_best_move l
   | _                   -> failwith "Game is over"

@@ -6,13 +6,13 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 19:22:06 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 09:20:17 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 let rec get_input b =
-	let x = Utils.prompt_int "Position X" in
-	let y = Utils.prompt_int "Position Y" in
+	let x = Utils.prompt_int "Position X" - 1 in
+	let y = Utils.prompt_int "Position Y" - 1 in
 	if x < 0 || x > 9 || y < 0 || y > 9 then begin
 		print_endline "Bad position. Please try again"; get_input b
 	end else begin

@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:22:31 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/20 19:30:16 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 10:07:47 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -56,4 +56,16 @@ let owner b (x, y) =
   match b with
   | Playing l			-> helper (List.nth l sbid)
   | _					-> failwith "Game is over"
-									
+
+(* cells must be ordered *)
+let getTripletValues cl (a, b, c) =
+  let rec helper cl cli ci =
+	match cl, cli, ci with
+	| [], _, _ | _, _, []							-> []
+	| (Owned hdl)::tll, hdli::tlli, hdci::tlci when hdli = hdci
+	  -> hdl::(helper tll tlli tlci)
+	| _::tll, _::tlli, _							-> helper tll tlli ci
+	| _, _, _										-> failwith "unreachable"
+  in
+  let vl = helper cl [a; b; c] [0; 1; 2; 3; 4; 5; 6; 7; 8] in
+  (List.nth vl 0, List.nth vl 1, List.nth vl 2)
