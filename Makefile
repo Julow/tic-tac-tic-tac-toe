@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 16:28:16 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/06/21 16:32:10 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ clean:
 	rm -f $(BYT_OBJS) $(OPT_OBJS) $(INC_OBJS)
 
 fclean: clean
-	rm -f $(NAME) .depend
+	rm -f $(NAME)
 
 re: fclean all
 
