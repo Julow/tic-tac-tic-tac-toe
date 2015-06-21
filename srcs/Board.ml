@@ -21,29 +21,35 @@ let emptyMain = Playing[emptySmall; emptySmall; emptySmall;
 						emptySmall; emptySmall; emptySmall;]
 
 (** Converts a 'Playing board' to a 'Owned board' if conditions are met *)
-let update_state b =
+let update_state inputowner b =
+  let sum_owned v c =
+	match c with
+	| Owned o when o <> Owner.No					-> v + 1
+	| _												-> v
+  in
   let helper = function
+	| l when List.fold_left sum_owned 0 l = 9		-> inputowner
 	| Owned o0 as o::Owned o1::Owned o2::_
-		 when o0 <> Owner.No && o0 = o1 && o0 = o2 -> o
+		 when o0 <> Owner.No && o0 = o1 && o0 = o2	-> o
 	| _::_::_::(Owned o3 as o')::Owned o4::Owned o5::_
-		 when o3 <> Owner.No && o3 = o4 && o3 = o5 -> o'
+		 when o3 <> Owner.No && o3 = o4 && o3 = o5	-> o'
 	| _::_::_::_::_::_::(Owned o6 as o'')::Owned o7::Owned o8::_
-		 when o6 <> Owner.No && o6 = o7 && o6 = o8 -> o''
+		 when o6 <> Owner.No && o6 = o7 && o6 = o8	-> o''
 	| Owned o0 as o::_::_::Owned o3::_::_::Owned o6::_
-		 when o0 <> Owner.No && o0 = o3 && o0 = o6 -> o
+		 when o0 <> Owner.No && o0 = o3 && o0 = o6	-> o
 	| _::Owned o1::_::_::(Owned o4 as o')::_::_::Owned o7::_
-		 when o1 <> Owner.No && o1 = o4 && o1 = o7 -> o'
+		 when o1 <> Owner.No && o1 = o4 && o1 = o7	-> o'
 	| _::_::Owned o2::_::_::Owned o5::_::_::(Owned o8 as o'')::_
-		 when o2 <> Owner.No && o2 = o5 && o2 = o8 -> o''
+		 when o2 <> Owner.No && o2 = o5 && o2 = o8	-> o''
 	| Owned o0 as o::_::_::_::Owned o4::_::_::_::Owned o8::_
-		 when o0 <> Owner.No && o0 = o4 && o0 = o8 -> o
+		 when o0 <> Owner.No && o0 = o4 && o0 = o8	-> o
 	| _::_::Owned o2::_::(Owned o4 as o')::_::Owned o6::_
-		 when o2 <> Owner.No && o2 = o4 && o2 = o6 -> o'
-	| _													-> b
+		 when o2 <> Owner.No && o2 = o4 && o2 = o6	-> o'
+	| _												-> b
   in
   match b with
-  | Playing l											-> helper l
-  | _													-> b
+  | Playing l										-> helper l
+  | _												-> b
 
 let owner b (x, y) =
   let helper sb =
@@ -57,15 +63,18 @@ let owner b (x, y) =
   | Playing l			-> helper (List.nth l sbid)
   | _					-> failwith "Game is over"
 
-(* cells must be ordered *)
+(** cl: cells list (Cells must be ordered)
+ ** a,b,c: triplet indexes
+ ** cli: triplet indexes, as list
+ ** 
+*)
 let getTripletValues cl (a, b, c) =
   let rec helper cl cli ci =
-	match cl, cli, ci with
-	| [], _, _ | _, _, []							-> []
-	| (Owned hdl)::tll, hdli::tlli, hdci::tlci when hdli = hdci
-	  -> hdl::(helper tll tlli tlci)
-	| _::tll, _::tlli, _							-> helper tll tlli ci
-	| _, _, _										-> failwith "unreachable"
+	match cl, cli with
+	| [], _ | _, []								-> []
+	| (Owned hdl)::tll, hdli::tlli when hdli = ci
+	  -> hdl::(helper tll tlli (ci + 1))
+	| _::tll, _									-> helper tll cli (ci + 1)
   in
-  let vl = helper cl [a; b; c] [0; 1; 2; 3; 4; 5; 6; 7; 8] in
-  (List.nth vl 0, List.nth vl 1, List.nth vl 2)
+  let vl = helper cl [a; b; c] 0 in
+  (Utils.nth vl 0, Utils.nth vl 1, Utils.nth vl 2)

@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:53 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 15:50:27 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 12:04:34 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -24,9 +24,10 @@ let rec start_game p1 p2 ui =
 		start_game p1 p2 ui
 
 let () =
-	let p1 = Utils.prompt_line "Player 1" true in
-	let p2 = Utils.prompt_line "Player 2" false in
-	if p1 = p2 then
+	(* let p1 = Utils.prompt_line "Player 1" true in *)
+	(* let p2 = Utils.prompt_line "Player 2" false in *)
+  let p1, p2 = "Kevinou", "" in
+  if p1 = p2 then
 		print_endline "Error player 1 and 2 have the same name"
 	else
 		let (init, get_in, draw) = get_gui () in
