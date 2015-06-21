@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 18:10:11 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:51:48 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -52,6 +52,13 @@ let rec draw_main_board b i sel =
 		draw_main_board tail (i + 1) sel
 	| _								-> ()
 
+let draw_grid () =
+	let padding_x, padding_y = cell_width / 2, cell_height / 2 in
+	Curses.mvvline 0 (3 * cell_width - padding_x) (int_of_char '|') (9 * cell_height - padding_y);
+	Curses.mvvline 0 (6 * cell_width - padding_x) (int_of_char '|') (9 * cell_height - padding_y);
+	Curses.mvhline (3 * cell_height - padding_y) 0 (int_of_char '-') (9 * cell_width - padding_x);
+	Curses.mvhline (6 * cell_height - padding_y) 0 (int_of_char '-') (9 * cell_width - padding_x)
+
 let draw_sel b sel =
 	Curses.erase () ;
 	begin
@@ -59,6 +66,7 @@ let draw_sel b sel =
 		| Board.Playing (lst)			-> draw_main_board lst 0 sel
 		| _								-> ()
 	end;
+	draw_grid ();
 	ignore (Curses.refresh ())
 
 let draw b = draw_sel b (-1, -1)
