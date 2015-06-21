@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 16:46:08 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/21 18:15:41 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LIBS := -cclib -L$$HOME/.opam/system/lib/curses
 SRCS := \
 		Utils.ml Owner.ml Player.ml \
 		Board.ml MainBoard.ml \
-		Debug.ml \
 		Ncurses.ml IA.ml \
 		Game.ml main.ml
 
