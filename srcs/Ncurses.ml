@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 16:33:16 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 16:40:57 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -51,4 +51,4 @@ let draw b = draw_sel b (-1, -1)
 
 let rec get_input b =
 	match Curses.getch () with
-	| c									-> Curses.erase () ; Curses.mvaddch 0 0 c ; Curses.refresh (); ()
+	| c									-> Curses.erase () ; Curses.mvaddch 0 0 c ; Curses.refresh (); (0, 0)
