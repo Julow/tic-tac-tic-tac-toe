@@ -1,4 +1,11 @@
-val get_gui : unit -> (Board.board -> int * int) * (Board.board -> unit)
-val start_game :
-  string ->
-  string -> (Board.board -> int * int) * (Board.board -> 'a) -> unit
+(* ************************************************************************** *)
+(*                                                                            *)
+(*                                                        :::      ::::::::   *)
+(*   main.mli                                           :+:      :+:    :+:   *)
+(*                                                    +:+ +:+         +:+     *)
+(*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
+(*                                                +#+#+#+#+#+   +#+           *)
+(*   Created: 2015/06/21 16:37:52 by jaguillo          #+#    #+#             *)
+(*   Updated: 2015/06/21 16:37:53 by jaguillo         ###   ########.fr       *)
+(*                                                                            *)
+(* ************************************************************************** *)
