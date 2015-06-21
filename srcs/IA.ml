@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/21 09:20:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/21 13:13:42 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:24:57 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -168,7 +168,5 @@ let get_best_move l =
 (** b: board *)
 let get_input b =
   match b with
-  | Board.Playing l     -> let (a, b) as ret = get_best_move l in
-						   Printf.printf "get_input %d %d\n%!" a b;
-						   ret
+  | Board.Playing l     -> get_best_move l
   | _                   -> failwith "Game is over"

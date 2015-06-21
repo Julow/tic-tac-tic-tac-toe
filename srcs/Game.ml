@@ -6,12 +6,12 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:41 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 18:12:26 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:25:57 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 let input_player board players (get_input, _, _) =
-	if (Player.string_of_player players) = "" then
+	if (Player.string_of_player players) = "IA" then
 		IA.get_input board
 	else
 		get_input board

@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:48:52 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 11:48:49 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:24:36 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -43,10 +43,4 @@ let rec prompt_int prompt =
 	end
 
 let nth l i =
-  (* try *)
 	List.nth l i
-  (* with *)
-  (* | _ -> *)
-  (* 	 Printf.printf "lol i=%d\n%!" i; *)
-  (* 	 failwith "rethrow" *)
-			  

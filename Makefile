@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 18:15:41 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/21 18:22:43 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,14 @@ INC_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmi))
 
 all: $(NAME)
 
-$(NAME): opt
+$(NAME): opt byt
+	ln -sf $(OBJS_DIR)/$(NAME).opt $@
 
 byt: $(INC_OBJS) $(BYT_OBJS)
-	ocamlc $(LIBS) -g -o $(NAME) ~/.opam/system/lib/curses/curses.cma $(BYT_OBJS)
+	ocamlc $(LIBS) -g -o $(OBJS_DIR)/$(NAME).byt ~/.opam/system/lib/curses/curses.cma $(BYT_OBJS)
 
 opt: $(INC_OBJS) $(OPT_OBJS)
-	ocamlopt $(LIBS) -o $(NAME) ~/.opam/system/lib/curses/curses.cmxa $(OPT_OBJS)
+	ocamlopt $(LIBS) -o $(OBJS_DIR)/$(NAME).opt ~/.opam/system/lib/curses/curses.cmxa $(OPT_OBJS)
 
 .depend: Makefile
 	ocamldep -I $(SRCS_DIR) $(addprefix $(SRCS_DIR)/,$(SRCS)) | sed -E 's/$(SRCS_DIR)|$(SRCS_DIR)/$(OBJS_DIR)/g' > .depend

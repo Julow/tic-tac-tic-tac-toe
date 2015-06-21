@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:53 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 18:16:05 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:27:23 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -26,8 +26,12 @@ let rec start_game p1 p2 ((init, a, b, c, deinit) as ui) =
 	end
 
 let () =
+	print_endline "tic-tac-tic-tac-toe";
+	print_endline "-------------------";
+	print_endline "Use 'IA' as player name for IA";
+	print_endline "-------------------";
 	let p1 = Utils.prompt_line "Player 1" true in
-	let p2 = Utils.prompt_line "Player 2" false in
+	let p2 = Utils.prompt_line "Player 2" true in
 	if p1 = p2 then
 		print_endline "Error player 1 and 2 have the same name"
 	else
