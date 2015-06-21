@@ -6,22 +6,34 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:42 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/21 16:40:57 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:10:11 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-(*
-** width = height
-** height = widht
-*)
-let cell_width = 5
-let cell_height = 10
+let cell_width = 10
+let cell_height = 5
 
-let add_player (x, y) i o sel =
-	let x', y' = (i mod 3 * cell_width + x), (i / 3 * cell_height + y) in
-	ignore (Curses.mvaddch x' y' (int_of_char o))
+let add_player (board_x, board_y) i o (x_sel, y_sel) =
+	let x', y' = (i mod 3 + board_x), (i / 3 + board_y) in
+	let x'', y'' = (x' * cell_width), (y' * cell_height) in
+	if x_sel = x' && y_sel = y' then begin
+		Curses.attron (Curses.A.color_pair 12);
+		ignore (Curses.mvaddch y'' x'' (int_of_char o));
+		Curses.attron (Curses.A.color_pair 13)
+	end else
+		ignore (Curses.mvaddch y'' x'' (int_of_char o))
 
-let init () = ignore (Curses.initscr ())
+let init () =
+	ignore (Curses.initscr ());
+	ignore (Curses.start_color ());
+	ignore (Curses.noecho ());
+	ignore (Curses.curs_set 0);
+	ignore (Curses.init_color 21 1000 1000 1000);
+	ignore (Curses.init_color 20 0 0 0);
+	ignore (Curses.init_pair 12 20 21);
+	ignore (Curses.init_pair 13 21 20)
+
+let deinit () = ignore (Curses.endwin ())
 
 let rec draw_board pos i b sel =
 	match b with
@@ -33,9 +45,11 @@ let rec draw_board pos i b sel =
 let rec draw_main_board b i sel =
 	match b with
 	| (Board.Playing (head))::tail  ->
-		draw_board ((i mod 3 * 3 * cell_width), (i / 3 * 3 * cell_height)) 0 head sel;
+		draw_board ((i mod 3 * 3), (i / 3 * 3)) 0 head sel;
 		draw_main_board tail (i + 1) sel
-	| (Board.Owned (head))::tail	-> ()
+	| head::tail	->
+		draw_board ((i mod 3 * 3), (i / 3 * 3)) 0 (Board.owned_to_playing head) sel;
+		draw_main_board tail (i + 1) sel
 	| _								-> ()
 
 let draw_sel b sel =
@@ -43,12 +57,22 @@ let draw_sel b sel =
 	begin
 		match b with
 		| Board.Playing (lst)			-> draw_main_board lst 0 sel
-		| _								-> ignore (Curses.mvaddstr 0 0 "lol")
+		| _								-> ()
 	end;
-	Curses.refresh (); ()
+	ignore (Curses.refresh ())
 
 let draw b = draw_sel b (-1, -1)
 
-let rec get_input b =
+let rec get_sel b ((x, y) as sel) =
+	draw_sel b sel;
 	match Curses.getch () with
-	| c									-> Curses.erase () ; Curses.mvaddch 0 0 c ; Curses.refresh (); (0, 0)
+	| 67 when x < 8											-> get_sel b ((x + 1), y)
+	| 68 when x > 0											-> get_sel b ((x - 1), y)
+	| 66 when y < 8											-> get_sel b (x, (y + 1))
+	| 65 when y > 0											-> get_sel b (x, (y - 1))
+	| 10 when (Board.owner b (x, y)) = Board.Owned Owner.No	-> sel
+	| _														-> get_sel b sel
+
+let get_input b = get_sel b (0, 0)
+
+let print msg = ignore (Curses.mvaddstr 0 0 msg)

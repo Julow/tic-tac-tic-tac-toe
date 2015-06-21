@@ -5,3 +5,4 @@ val update_state : board -> board -> board
 val owner : board -> int * int -> board
 val getTripletValues :
   board list -> int * int * int -> Owner.t * Owner.t * Owner.t
+val owned_to_playing : board -> board list

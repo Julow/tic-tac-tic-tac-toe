@@ -1,10 +1,15 @@
-val input_player :
-  Board.board ->
-  'a * string * 'b * 'c -> (Board.board -> int * int) * 'd -> int * int
-val game_loop :
-  Board.board ->
-  Owner.t * string * Owner.t * string ->
-  (Board.board -> int * int) * (Board.board -> 'a) -> unit
-val start :
-  string ->
-  string -> (Board.board -> int * int) * (Board.board -> 'a) -> unit
+(* ************************************************************************** *)
+(*                                                                            *)
+(*                                                        :::      ::::::::   *)
+(*   Game.mli                                           :+:      :+:    :+:   *)
+(*                                                    +:+ +:+         +:+     *)
+(*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
+(*                                                +#+#+#+#+#+   +#+           *)
+(*   Created: 2015/06/21 17:03:09 by jaguillo          #+#    #+#             *)
+(*   Updated: 2015/06/21 17:59:53 by jaguillo         ###   ########.fr       *)
+(*                                                                            *)
+(* ************************************************************************** *)
+
+val start : string -> string
+		-> (Board.board -> int * int) * (string -> unit) * (Board.board -> 'a)
+		-> Player.t

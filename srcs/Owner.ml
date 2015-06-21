@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:30:02 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/21 12:07:22 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/21 16:47:26 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -21,7 +21,7 @@ let next = function
   | No			-> No
 
 let char_of_owner = function
-  | No					-> ' '
+  | No					-> '.'
   | P1					-> 'O'
   | P2					-> 'X'
 

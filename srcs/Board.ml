@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 11:22:31 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/21 12:52:59 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 18:09:41 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -78,3 +78,8 @@ let getTripletValues cl (a, b, c) =
   in
   let vl = helper cl [a; b; c] 0 in
   (Utils.nth vl 0, Utils.nth vl 1, Utils.nth vl 2)
+
+let owned_to_playing o =
+	match o with
+	| Playing (p)		-> p
+	| _					-> ([o; o; o; o; o; o; o; o; o])
