@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 11:04:42 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/06/21 11:35:02 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ all: $(NAME)
 $(NAME): opt
 
 byt: $(BYT_OBJS)
-	ocamlc -o $(NAME) $^
+	ocamlc -g -o $(NAME) $^
 
 opt: $(OPT_OBJS)
 	ocamlopt -o $(NAME) $^
@@ -39,7 +39,7 @@ opt: $(OPT_OBJS)
 	ocamldep -I $(INCS_DIR) $(addprefix $(SRCS_DIR)/,$(SRCS)) | sed -E 's/$(SRCS_DIR)|$(INCS_DIR)/$(OBJS_DIR)/g' > .depend
 
 $(BYT_OBJS): $(OBJS_DIR)/%.cmo: $(SRCS_DIR)/%.ml $(OBJS_DIR)
-	ocamlc -I $(OBJS_DIR) -o $@ -c $<
+	ocamlc -g -I $(OBJS_DIR) -o $@ -c $<
 
 $(OPT_OBJS): $(OBJS_DIR)/%.cmx: $(SRCS_DIR)/%.ml $(OBJS_DIR)
 	ocamlopt -I $(OBJS_DIR) -o $@ -c $<

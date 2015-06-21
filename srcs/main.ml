@@ -6,13 +6,14 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:53 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 19:14:54 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 12:04:34 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 let rec get_gui () =
-	match Utils.prompt_int "UI (1/2)" with
-	| 1			-> (Ncurses.get_input, Ncurses.draw)
+	(* match Utils.prompt_int "UI (1/2)" with *)
+  match 1 with
+  | 1			-> (Ncurses.get_input, Ncurses.draw)
 	| 2			-> ((fun b -> (0, 0)), (fun b -> ()))
 	| _			-> print_endline "Bad gui. Please retry"; get_gui ()
 
@@ -25,9 +26,10 @@ let rec start_game p1 p2 ui =
 		start_game p1 p2 ui
 
 let () =
-	let p1 = Utils.prompt_line "Player 1" true in
-	let p2 = Utils.prompt_line "Player 2" false in
-	if p1 = p2 then
+	(* let p1 = Utils.prompt_line "Player 1" true in *)
+	(* let p2 = Utils.prompt_line "Player 2" false in *)
+  let p1, p2 = "Kevinou", "" in
+  if p1 = p2 then
 		print_endline "Error player 1 and 2 have the same name"
 	else
 		start_game p1 p2 (get_gui ())
