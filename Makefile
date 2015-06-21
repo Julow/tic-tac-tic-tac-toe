@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 18:22:43 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/21 19:06:23 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,37 +28,45 @@ BYT_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmo))
 OPT_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmx))
 INC_OBJS := $(addprefix $(OBJS_DIR)/,$(SRCS:.ml=.cmi))
 
-all: $(NAME)
+all: $(OBJS_DIR) $(NAME)
 
-$(NAME): opt byt
-	ln -sf $(OBJS_DIR)/$(NAME).opt $@
+$(NAME): $(OBJS_DIR)/$(NAME).byt $(OBJS_DIR)/$(NAME).opt
+	@ln -sf $(OBJS_DIR)/$(NAME).opt $@
+	@echo "Done"
 
-byt: $(INC_OBJS) $(BYT_OBJS)
-	ocamlc $(LIBS) -g -o $(OBJS_DIR)/$(NAME).byt ~/.opam/system/lib/curses/curses.cma $(BYT_OBJS)
+byt: $(OBJS_DIR)/$(NAME).byt
+$(OBJS_DIR)/$(NAME).byt: $(INC_OBJS) $(BYT_OBJS)
+	@ocamlc $(LIBS) -g -o $@ ~/.opam/system/lib/curses/curses.cma $(BYT_OBJS)
+	@echo "$@"
 
-opt: $(INC_OBJS) $(OPT_OBJS)
-	ocamlopt $(LIBS) -o $(OBJS_DIR)/$(NAME).opt ~/.opam/system/lib/curses/curses.cmxa $(OPT_OBJS)
+opt: $(OBJS_DIR)/$(NAME).opt
+$(OBJS_DIR)/$(NAME).opt: $(INC_OBJS) $(OPT_OBJS)
+	@ocamlopt $(LIBS) -o $@ ~/.opam/system/lib/curses/curses.cmxa $(OPT_OBJS)
+	@echo "$@"
 
 .depend: Makefile
-	ocamldep -I $(SRCS_DIR) $(addprefix $(SRCS_DIR)/,$(SRCS)) | sed -E 's/$(SRCS_DIR)|$(SRCS_DIR)/$(OBJS_DIR)/g' > .depend
+	@ocamldep -I $(SRCS_DIR) $(addprefix $(SRCS_DIR)/,$(SRCS)) | sed -E 's/$(SRCS_DIR)/$(OBJS_DIR)/g' > .depend
 
-$(BYT_OBJS): $(OBJS_DIR)/%.cmo: $(SRCS_DIR)/%.ml $(SRCS_DIR)/%.mli $(OBJS_DIR)
-	ocamlc -g $(FLAGS) -o $@ -c $<
+$(BYT_OBJS): $(OBJS_DIR)/%.cmo: $(SRCS_DIR)/%.ml
+	@ocamlc -g $(FLAGS) -o $@ -c $<
+	@echo "$<"
 
-$(OPT_OBJS): $(OBJS_DIR)/%.cmx: $(SRCS_DIR)/%.ml $(SRCS_DIR)/%.mli $(OBJS_DIR)
-	ocamlopt $(FLAGS) -o $@ -c $<
+$(OPT_OBJS): $(OBJS_DIR)/%.cmx: $(SRCS_DIR)/%.ml
+	@ocamlopt $(FLAGS) -o $@ -c $<
+	@echo "$<"
 
-$(INC_OBJS): $(OBJS_DIR)/%.cmi: $(SRCS_DIR)/%.mli $(OBJS_DIR)
-	ocamlopt -I $(OBJS_DIR) -o $@ -c $<
+$(INC_OBJS): $(OBJS_DIR)/%.cmi: $(SRCS_DIR)/%.mli
+	@ocamlopt -I $(OBJS_DIR) -o $@ -c $<
+	@echo "$<"
 
 $(OBJS_DIR):
-	mkdir -p $@
+	@mkdir -p $@
 
 clean:
-	rm -f $(BYT_OBJS) $(OPT_OBJS) $(INC_OBJS)
+	@rm -f $(BYT_OBJS) $(OPT_OBJS) $(INC_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME) $(OBJS_DIR)/$(NAME).opt $(OBJS_DIR)/$(NAME).byt
 
 re: fclean all
 
