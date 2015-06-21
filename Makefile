@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 11:04:42 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/06/21 14:39:55 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@ OBJS_DIR := bin
 SRCS_DIR := srcs
 INCS_DIR := include
 
-SRCS :=	Utils.ml Owner.ml Player.ml \
+FLAGS := -I $(OBJS_DIR) -I ~/.opam/system/lib/curses
+LIBS := -cclib -L/nfs/zfs-student-3/users/2014/jaguillo/.opam/system/lib/curses
+
+SRCS := \
+		Utils.ml Owner.ml Player.ml \
 		Board.ml MainBoard.ml \
 		Debug.ml \
 		Ncurses.ml IA.ml \
@@ -30,19 +34,19 @@ all: $(NAME)
 $(NAME): opt
 
 byt: $(BYT_OBJS)
-	ocamlc -o $(NAME) $^
+	ocamlc ~/.opam/system/lib/curses/curses.cma $(LIBS) -o $(NAME) $^
 
 opt: $(OPT_OBJS)
-	ocamlopt -o $(NAME) $^
+	ocamlopt ~/.opam/system/lib/curses/curses.cmxa $(LIBS) -o $(NAME) $^
 
 .depend: Makefile
 	ocamldep -I $(INCS_DIR) $(addprefix $(SRCS_DIR)/,$(SRCS)) | sed -E 's/$(SRCS_DIR)|$(INCS_DIR)/$(OBJS_DIR)/g' > .depend
 
 $(BYT_OBJS): $(OBJS_DIR)/%.cmo: $(SRCS_DIR)/%.ml $(OBJS_DIR)
-	ocamlc -I $(OBJS_DIR) -o $@ -c $<
+	ocamlc $(FLAGS) -o $@ -c $<
 
 $(OPT_OBJS): $(OBJS_DIR)/%.cmx: $(SRCS_DIR)/%.ml $(OBJS_DIR)
-	ocamlopt -I $(OBJS_DIR) -o $@ -c $<
+	ocamlopt $(FLAGS) -o $@ -c $<
 
 $(OBJS_DIR):
 	mkdir -p $@

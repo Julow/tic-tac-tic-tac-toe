@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 13:41:41 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 19:16:55 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 14:45:41 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -32,4 +32,7 @@ let rec game_loop board players ((get_input, draw) as ui) =
 
 let start player1 player2 ui =
 	print_endline ("Game start with " ^ player1 ^ " and " ^ player2);
-	game_loop Board.emptyMain (Player.new_players player1 player2) ui
+	let board = Board.emptyMain in
+	let (_, draw) = ui in
+	draw board;
+	game_loop board (Player.new_players player1 player2) ui

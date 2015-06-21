@@ -6,9 +6,11 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/20 15:04:53 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/20 16:47:59 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/21 12:44:05 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
+
+val init : unit -> unit
 
 val get_input : Board.t -> (int * int)
 
