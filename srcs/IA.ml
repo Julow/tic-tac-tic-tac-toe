@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/21 09:20:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/21 12:02:48 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/21 13:13:42 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,6 +16,34 @@ let triplets2 = [(0, 4, 8); (2, 4, 6)]
 let sbindex = [0; 1; 2; 3; 4; 5; 6; 7; 8]
 
 let empty_moves = [[]; []; []; []; []]
+
+let pick_rand_subpos (l, sbi) =
+  let rec helper l l' =
+	match l with
+	| []										-> l'
+	| (Board.Owned Owner.No, i)::tl 			-> helper tl (i::l')
+	| _::tl										-> helper tl l'
+  in
+  let cells = helper (List.combine l [0; 1; 2; 3; 4; 5; 6; 7; 8]) [] in
+  let len = List.length cells in
+  if len = 0 then
+	failwith "unreachable ! ! !"
+  else
+	MainBoard.getcell_xy sbi (Utils.nth cells (Random.int len))
+
+let pick_rand_pos l =
+  let rec helper l l' =
+	match l with
+	| []										-> l'
+	| (Board.Playing hd, i)::tl 				-> helper tl ((hd, i)::l')
+	| _::tl										-> helper tl l'
+  in
+  let sb = helper (List.combine l [0; 1; 2; 3; 4; 5; 6; 7; 8]) [] in
+  let len = List.length sb in
+  if len = 0 then
+	failwith "unreachable ! !"
+  else
+	pick_rand_subpos (Utils.nth sb (Random.int len))
 
 (** sbi: subboard index
  ** ai,bi,ci: triplet indexes unpacked
@@ -117,28 +145,21 @@ let check_triplets cl sbi lm =
 let foreach_subboards l =
   let rec helper l li lm =
 	match l, li with
-	| [], _
 	| _, _ when List.length (List.hd lm) > 0		-> lm
 	| (Board.Playing cl)::tl, hdi::tli				->
 	   helper tl tli (check_triplets cl hdi lm)
-	| _, _											-> lm
+	| [], _	| _, []									-> lm
+	| _::tl, _::tli									->
+	   helper tl tli lm
   in
   helper l sbindex empty_moves
 
-let select_move lm =
-  let rec helper = function
-	| []											-> (4, 4) (* PICK 2 OR RANDOM *)
-	| hd::tl when List.length hd > 0				-> List.hd hd
-	| _::tl											-> helper tl
-  in
-  helper lm
-		 
 (** l: subboards list
  ** lm: list moves *)
 let get_best_move l =
   let lm = foreach_subboards l in
   let rec helper = function
-	| []											-> select_move lm
+	| []											-> pick_rand_pos l
 	| hd::tl when List.length hd > 0				-> List.hd hd
 	| _::tl											-> helper tl
   in
