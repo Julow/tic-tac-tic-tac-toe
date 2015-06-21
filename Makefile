@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/21 19:06:23 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/21 19:08:54 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,13 @@ $(NAME): $(OBJS_DIR)/$(NAME).byt $(OBJS_DIR)/$(NAME).opt
 byt: $(OBJS_DIR)/$(NAME).byt
 $(OBJS_DIR)/$(NAME).byt: $(INC_OBJS) $(BYT_OBJS)
 	@ocamlc $(LIBS) -g -o $@ ~/.opam/system/lib/curses/curses.cma $(BYT_OBJS)
+	@ln -sf $(OBJS_DIR)/$(NAME).byt $(NAME)
 	@echo "$@"
 
 opt: $(OBJS_DIR)/$(NAME).opt
 $(OBJS_DIR)/$(NAME).opt: $(INC_OBJS) $(OPT_OBJS)
 	@ocamlopt $(LIBS) -o $@ ~/.opam/system/lib/curses/curses.cmxa $(OPT_OBJS)
+	@ln -sf $(OBJS_DIR)/$(NAME).opt $(NAME)
 	@echo "$@"
 
 .depend: Makefile
