@@ -1,7 +1,7 @@
 # Piscine OCAML rush#00 TIC-TAC-TIC-TAC-TOE, Jun 2015
 >>>>> #####9*9 cells tic-tac-toe game. (group project)
 
-#####Grade ``(tbd/100)`` ``(tbd/125)*``
+#####Grade ``(121/100)`` ``(121/125)*``
 --------  -----------------------
 
 Team: [jaguillo](https://github.com/Julow) / [ngoguey](https://github.com/Ngoguey42).
